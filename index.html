@@ -9,7 +9,9 @@
 <meta property="og:site_name" content="AfterBell Supply">
 <meta property="og:title" content="AfterBell Supply">
 <meta property="og:description" content="Protein, hydration and training gear. Build your cart here, then check out on Amazon.">
-<meta property="og:image" content="preview.png">
+<meta property="og:url" content="https://getafterbell.github.io/">
+<link rel="canonical" href="https://getafterbell.github.io/">
+<meta property="og:image" content="https://getafterbell.github.io/preview.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="AfterBell Supply. Last bell rings. Work starts.">
@@ -230,6 +232,7 @@ svg{display:block}
 .pennant{justify-self:start;max-width:100%;background:var(--k);color:var(--kt);font:italic 900 1.5rem/1 var(--font-display);text-transform:uppercase;white-space:nowrap;padding:14px 96px 14px 14px;clip-path:polygon(0 0,100% 50%,0 100%)}
 .kit__who{color:var(--fog);margin-top:-6px}
 .kit .btn{justify-self:start}
+.kit:target,.guide:target{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold)}
 
 /* Not in the locker */
 .nope{display:grid;gap:20px}
@@ -488,7 +491,7 @@ svg{display:block}
           <p class="lede">Four short guides. All of it is free, and all of it matters more than anything in your cart.</p>
         </div>
         <ul class="guides">
-          <li class="guide" style="--c:var(--plate-red)">
+          <li class="guide" id="guide-fuel" style="--c:var(--plate-red)">
             <p class="guide__tag"><i class="plate"></i>Guide 1 · Fuel</p>
             <h3 class="guide__title">Food first</h3>
             <ul class="guide__list">
@@ -499,7 +502,7 @@ svg{display:block}
             </ul>
             <a class="guide__link" href="#lineup" data-shop="fuel">See the fuel picks</a>
           </li>
-          <li class="guide" style="--c:var(--plate-blue)">
+          <li class="guide" id="guide-hydration" style="--c:var(--plate-blue)">
             <p class="guide__tag"><i class="plate"></i>Guide 2 · Hydration</p>
             <h3 class="guide__title">Drink early</h3>
             <ul class="guide__list">
@@ -510,7 +513,7 @@ svg{display:block}
             </ul>
             <a class="guide__link" href="#lineup" data-shop="hydration">See the hydration picks</a>
           </li>
-          <li class="guide" style="--c:var(--plate-gold)">
+          <li class="guide" id="guide-training" style="--c:var(--plate-gold)">
             <p class="guide__tag"><i class="plate"></i>Guide 3 · Training</p>
             <h3 class="guide__title">Form before weight</h3>
             <ul class="guide__list">
@@ -521,7 +524,7 @@ svg{display:block}
             </ul>
             <a class="guide__link" href="#lineup" data-shop="gear">See the gear picks</a>
           </li>
-          <li class="guide" style="--c:var(--plate-green)">
+          <li class="guide" id="guide-recovery" style="--c:var(--plate-green)">
             <p class="guide__tag"><i class="plate"></i>Guide 4 · Recovery</p>
             <h3 class="guide__title">Sleep is the supplement</h3>
             <ul class="guide__list">
@@ -1166,7 +1169,7 @@ svg{display:block}
     `<fieldset class="q"><legend><span class="q__n">${qi + 1}.</span><span>${q.q}</span></legend><div class="q__opts">${q.opts.map(([v, label], oi) =>
       `<label class="bubble"><input type="radio" name="quiz-${q.key}" id="quiz-${q.key}-${v}" value="${v}"${answers[q.key] === v ? " checked" : ""}><span class="bubble__dot" aria-hidden="true">${"ABCD"[oi]}</span><span class="bubble__txt">${label}</span></label>`).join("")}</div></fieldset>`).join("");
   $("#kitsList").innerHTML = KITS.map(k =>
-    `<li class="kit"><h3 class="pennant" style="--k:${k.color};--kt:${k.text}">${k.name}</h3><p class="kit__who">${k.who}</p><ul class="rows">${k.items.filter(id => byId[id]).map(id => rowHtml(byId[id])).join("")}</ul><button class="btn btn--gold" type="button" data-kit="${k.items.join(",")}" data-kit-name="${k.name}">Add all ${k.items.length}</button></li>`).join("");
+    `<li class="kit" id="kit-${k.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}"><h3 class="pennant" style="--k:${k.color};--kt:${k.text}">${k.name}</h3><p class="kit__who">${k.who}</p><ul class="rows">${k.items.filter(id => byId[id]).map(id => rowHtml(byId[id])).join("")}</ul><button class="btn btn--gold" type="button" data-kit="${k.items.join(",")}" data-kit-name="${k.name}">Add all ${k.items.length}</button></li>`).join("");
   $("#year").textContent = new Date().getFullYear();
   if (!tag) $("#setup").hidden = false;
   if (CONFIG.checkoutMode === "links") {
@@ -1185,6 +1188,14 @@ svg{display:block}
   setFilter("all");
   renderAll();
   if (arrived) showSharedCart();
+  /* Direct links such as #guide-fuel or #kit-day-one. Kits are drawn by script, so jump again once the page has settled. */
+  const jumpToHash = () => {
+    const h = location.hash.slice(1);
+    const el = /^(guide|kit)-[a-z0-9-]+$/.test(h) && document.getElementById(h);
+    if (el) el.scrollIntoView({ behavior: "auto", block: "start" });
+  };
+  jumpToHash();
+  window.addEventListener("load", jumpToHash);
   window.addEventListener("hashchange", () => { if (takeSharedCart()) { renderAll(); showSharedCart(); } });
 })();
 </script>
