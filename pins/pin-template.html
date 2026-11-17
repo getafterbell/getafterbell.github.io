@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pin</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,800;1,900&family=Barlow:wght@400;500;600;700&display=block">
+<style>
+:root{
+  --navy:#111c3d; --navy-deep:#0a1229; --navy-lift:#1d2c5c; --navy-line:#31437f;
+  --chalk:#f4f3ee; --gold:#f7b500; --ink:#0d1531; --fog:#aeb7d6;
+  --red:#d92d30; --blue:#2d7ff9; --green:#1fa464;
+  --dsp:"Barlow Condensed","Arial Narrow",Impact,sans-serif;
+  --body:"Barlow","Segoe UI",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1000px;height:1500px;overflow:hidden;background:var(--navy)}
+body{color:var(--chalk);font-family:var(--body);-webkit-font-smoothing:antialiased}
+.pin{width:1000px;height:1500px;display:flex;flex-direction:column}
+.top{height:155px;background:var(--navy-deep);display:flex;align-items:center;justify-content:space-between;padding:0 64px}
+.logo{display:flex;align-items:center;gap:18px;font:italic 900 54px/1 var(--dsp);text-transform:uppercase;letter-spacing:.01em}
+.logo i{width:64px;height:64px;border-radius:8px;background:var(--navy-lift);display:grid;place-items:center}
+.logo svg{width:58px;height:58px}
+.label{display:flex;align-items:center;gap:14px;font:700 27px/1 var(--dsp);letter-spacing:.2em;text-transform:uppercase;color:var(--fog)}
+.label b{width:22px;height:22px;border-radius:50%;border:4px solid var(--chalk);background:var(--acc,var(--gold))}
+.rule{height:18px;background:linear-gradient(var(--gold) 0 6px,var(--navy-deep) 6px 11px,var(--gold) 11px 18px)}
+.top,.rule,.foot{flex:none}
+.main{flex:1;min-height:0;overflow:hidden;padding:70px 64px 0;display:flex;flex-direction:column}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.grid2 .row{align-items:flex-start;padding:24px 24px;gap:18px}
+.grid2 .mk{width:40px;font-size:62px}
+.grid2 .tx span{font-size:27px}
+.eyebrow{font:700 34px/1.1 var(--dsp);letter-spacing:.2em;text-transform:uppercase;color:var(--acc,var(--gold))}
+h1{margin-top:26px;font:italic 900 var(--hs,150px)/.86 var(--dsp);text-transform:uppercase;letter-spacing:-.005em}
+h1 span{display:block}
+h1 .g{color:var(--gold)}
+.body{flex:1;display:flex;flex-direction:column;justify-content:center;gap:22px;padding:40px 0 44px}
+.row{display:flex;align-items:center;gap:30px;background:var(--navy-lift);border:2px solid var(--navy-line);border-left:10px solid var(--c,var(--gold));border-radius:12px;padding:var(--rp,22px) 36px}
+.mk{flex:none;width:62px;text-align:center;font:italic 900 74px/1 var(--dsp);color:var(--c,var(--gold))}
+.mk.box{width:56px;height:56px;border:5px solid var(--c,var(--gold));border-radius:8px;display:grid;place-items:center;font:900 40px/1 var(--body)}
+.mk.dot{width:52px;height:52px;border-radius:50%;border:5px solid var(--chalk);background:var(--c,var(--gold))}
+.tx b{display:block;font:italic 900 46px/1.02 var(--dsp);text-transform:uppercase}
+.tx span{display:block;margin-top:8px;font:400 30px/1.3 var(--body);color:#dfe3f0}
+.sub{font:700 30px/1 var(--dsp);letter-spacing:.18em;text-transform:uppercase;color:var(--fog);margin-top:8px}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.col{background:var(--navy-lift);border:2px solid var(--navy-line);border-top:12px solid var(--c);border-radius:12px;padding:30px 30px 34px}
+.col h2{font:italic 900 52px/1 var(--dsp);text-transform:uppercase;color:var(--c)}
+.col p.k{margin-top:6px;font:700 25px/1.2 var(--dsp);letter-spacing:.16em;text-transform:uppercase;color:var(--fog)}
+.col ul{list-style:none;margin-top:24px;display:grid;gap:18px}
+.col li{display:flex;gap:16px;font:500 32px/1.25 var(--body)}
+.col li::before{content:"";flex:none;width:16px;height:16px;margin-top:12px;border-radius:50%;background:var(--c)}
+.note{background:var(--chalk);color:var(--ink);border-radius:12px;padding:24px 34px;font:600 31px/1.3 var(--body)}
+.note b{font:italic 900 36px/1 var(--dsp);text-transform:uppercase;margin-right:10px}
+.foot{height:150px;background:var(--gold);display:flex;align-items:center;justify-content:space-between;padding:0 64px;color:var(--ink)}
+.cta{font:italic 900 60px/1 var(--dsp);text-transform:uppercase;letter-spacing:-.005em}
+.url{background:var(--ink);color:var(--chalk);border-radius:10px;padding:20px 24px;font:700 32px/1 var(--dsp);letter-spacing:.06em}
+</style>
+</head>
+<body>
+<div class="pin" id="pin"></div>
+<script>
+const LOGO = '<svg viewBox="0 0 40 40"><path fill="#f7b500" stroke="#f4f3ee" stroke-width="2" stroke-linejoin="round" paint-order="stroke" fill-rule="evenodd" d="M15 5h10l9 25h3v6H24v-6h2.5l-1-3.5h-11l-1 3.5H16v6H3v-6h3zM17 20h6l-3-9z"/></svg>';
+const C = { red:"var(--red)", blue:"var(--blue)", gold:"var(--gold)", green:"var(--green)" };
+
+const PINS = {
+  quiz: { label:"Pop quiz", eyebrow:"3 questions · 30 seconds", title:["Which gym kit","!fits you?"], hs:140,
+    rows:{ mark:"dot", items:[
+      ["gold","What are you training for?","Stronger, faster, in season or just starting."],
+      ["blue","Where do you train most?","School weight room, home or the field."],
+      ["red","What's the biggest problem?","Starving, cramping, sore or no equipment."]]},
+    note:["Free.","No sign-up. Your kit builds as you answer."], cta:"Take the pop quiz" },
+
+  nope: { label:"Skip these", acc:"var(--red)", eyebrow:"Not in the locker", title:["3 supplements","!teens don't need"], hs:122,
+    rows:{ mark:"x", items:[
+      ["red","Pre-workout","Made for adults."],
+      ["red","Fat burners","Made for adults."],
+      ["red","Test boosters","Made for adults."]]},
+    rows2:{ head:"Do this instead", mark:"check", items:[
+      ["green","Real meals · 8–10 hours of sleep · show up",""]]},
+    cta:"Read the free guides" },
+
+  hydration: { label:"Hydration", acc:"var(--blue)", eyebrow:"Practice hydration, settled", title:["Water or","!electrolytes?"], hs:142,
+    vs:[
+      ["blue","Water","Most of the time",["Most practices","Under an hour","A few big gulps every 15–20 min"]],
+      ["gold","Electrolyte mix","When it helps",["Past an hour of hard work","Real heat","Two-a-days"]]],
+    note:["Color check.","Pale yellow means you're good. Dark yellow means drink more."], cta:"Free hydration guide" },
+
+  homeworkout: { label:"Home workout", acc:"var(--green)", eyebrow:"Train the whole body at home", title:["No weight room?","!5 moves."], hs:132, rp:"16px",
+    rows:{ mark:"num", items:[
+      ["green","Push-ups","Chest, shoulders and arms."],
+      ["green","Pull-ups","Back and grip. A doorway bar works."],
+      ["green","Band rows","Back, with a loop band."],
+      ["green","Squats","Legs. No weight needed."],
+      ["green","Jump rope","Conditioning in a small space."]]},
+    cta:"Garage Gym kit" },
+
+  protein: { label:"Fuel", acc:"var(--red)", eyebrow:"Protein at every meal", title:["6 protein foods","!for athletes"], hs:128,
+    rows:{ mark:"num", cols:2, items:[
+      ["red","Eggs","Breakfast in five minutes."],
+      ["red","Chicken","Sandwich, wrap or rice bowl."],
+      ["red","Milk","With any meal."],
+      ["red","Yogurt","A snack before practice."],
+      ["red","Beans","Chili, burritos, rice and beans."],
+      ["red","Peanut butter","Toast, apples or a sandwich."]]},
+    note:["Food first.","Shakes and bars fill gaps. They don't replace meals."], cta:"Free fuel guide" },
+
+  sore: { label:"Recovery", acc:"var(--green)", eyebrow:"Know the difference", title:["Sore","!or hurt?"], hs:170,
+    vs:[
+      ["green","Normal soreness","Keep moving",["Dull, achy muscles","Fades in a day or two","Easy movement the next day"]],
+      ["red","Tell someone","Don't train through it",["Sharp pain","Swelling","Pain that sticks around"]]],
+    note:["Who to tell:","a coach, athletic trainer or parent."], cta:"Free recovery guide" },
+
+  lineup: { label:"The lineup", eyebrow:"Gear for high school athletes", title:["12 picks.","!Zero filler."], hs:156,
+    rows:{ mark:"dot", items:[
+      ["red","Fuel","Whey, protein shakes, bars and a shaker."],
+      ["blue","Hydration","Electrolyte mix and squeeze bottles."],
+      ["gold","Gear","Loop bands, jump rope, straps, pull-up bar."],
+      ["green","Recovery","Foam roller and massage balls."]]},
+    cta:"Build your cart" },
+
+  gifts: { label:"Gift guide", acc:"var(--red)", eyebrow:"For the athlete in your house", title:["Gifts for","!teen athletes"], hs:150,
+    vs:[
+      ["green","Stockings","Small and useful",["Massage balls","Speed jump rope","Protein bars","Shaker bottle"]],
+      ["red","Under the tree","Used all year",["Foam roller","Doorway pull-up bar","Loop band set","Whey protein"]]],
+    note:["Every pick","is something they'll actually use."], cta:"Shop the gift picks" },
+
+  lifting: { label:"Training", eyebrow:"Beginner strength training", title:["How often","!should teens lift?"], hs:128,
+    rows:{ mark:"num", items:[
+      ["gold","2–3 days a week","With a rest day in between."],
+      ["gold","Light weight first","Ask a coach to check your form."],
+      ["gold","Small jumps","Add weight only when every rep looks the same."]]},
+    cta:"Free training guide" }
+};
+
+const id = new URLSearchParams(location.search).get("p");
+const p = PINS[id];
+const el = document.getElementById("pin");
+if (p.acc) document.documentElement.style.setProperty("--acc", p.acc);
+if (p.hs) document.documentElement.style.setProperty("--hs", p.hs + "px");
+if (p.rp) document.documentElement.style.setProperty("--rp", p.rp);
+const title = p.title.map(t => t[0] === "!" ? `<span class="g">${t.slice(1)}</span>` : `<span>${t}</span>`).join("");
+const mark = (m, i) => m === "num" ? `<div class="mk">${i + 1}</div>` : m === "dot" ? `<div class="mk dot"></div>` : m === "x" ? `<div class="mk box">✕</div>` : `<div class="mk box">✓</div>`;
+const rows = r => {
+  const items = r.items.map(([c, b, s], i) =>
+    `<div class="row" style="--c:${C[c]}">${mark(r.mark, i)}<div class="tx"><b>${b}</b>${s ? `<span>${s}</span>` : ""}</div></div>`).join("");
+  return (r.head ? `<p class="sub">${r.head}</p>` : "") + (r.cols === 2 ? `<div class="grid2">${items}</div>` : items);
+};
+let body = "";
+if (p.rows) body += rows(p.rows);
+if (p.rows2) body += rows(p.rows2);
+if (p.vs) body += `<div class="vs">${p.vs.map(([c, h, k, li]) => `<div class="col" style="--c:${C[c]}"><h2>${h}</h2><p class="k">${k}</p><ul>${li.map(x => `<li>${x}</li>`).join("")}</ul></div>`).join("")}</div>`;
+if (p.note) body += `<div class="note"><b>${p.note[0]}</b>${p.note[1]}</div>`;
+el.innerHTML = `
+  <div class="top"><div class="logo"><i>${LOGO}</i>AfterBell Supply</div><div class="label"><b></b>${p.label}</div></div>
+  <div class="rule"></div>
+  <div class="main"><p class="eyebrow">${p.eyebrow}</p><h1>${title}</h1><div class="body">${body}</div></div>
+  <div class="foot"><div class="cta">${p.cta}</div><div class="url">getafterbell.github.io</div></div>`;
+</script>
+</body>
+</html>
